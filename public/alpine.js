@@ -27,7 +27,7 @@ document.addEventListener("alpine:init", () => {
             },
             getPricePlans(){
 
-                return axios.get('http://localhost:3008/api/price_plans')
+                return axios.get('/api/price_plans')
                             .then(result => {
                                 this.price_plans = result.data.price_plans
                                 console.log(result.data)
@@ -35,7 +35,7 @@ document.addEventListener("alpine:init", () => {
             },
 
             getTotalPhoneBill(){
-                return axios.post('http://localhost:3008/api/phonebill', {
+                return axios.post('/api/phonebill', {
                     "price_plan": this.plan_name,
                     "actions" : this.actions
                 }).then(result => {
@@ -56,7 +56,7 @@ document.addEventListener("alpine:init", () => {
                     alert(`Invalid plan name: The plan name is either empty or it already exists in the database`)
                 }
                 else {
-                    return axios.post('http://localhost:3008/api/price_plan/create', {
+                    return axios.post('/api/price_plan/create', {
                         "name": this.name,
                         "call_cost" : this.call_cost,
                         "sms_cost": this.sms_cost
@@ -69,7 +69,7 @@ document.addEventListener("alpine:init", () => {
             },
 
             updatePricePlan(){
-                return axios.post('http://localhost:3008/api/price_plan/update', {
+                return axios.post('/price_plan/update', {
                     "price_plan": this.pricePlan,
                     "sms_price" : this.newCall_cost,
                     "call_price": this.newSms_cost
@@ -82,7 +82,7 @@ document.addEventListener("alpine:init", () => {
 
             deletePricePlan(){
 
-                return axios.post('http://localhost:3008/api/price_plan/delete', {
+                return axios.post('/api/price_plan/delete', {
                     "id": this.id
                 }).then(result => {
                     this.deleteMessage = result.data.message
