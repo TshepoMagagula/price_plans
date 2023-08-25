@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+    <script src="./alpine.js"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+</head>
+<body>
+    <div class="main" x-data="price_plansWithSQLite">
+    <h1>Total Phone Bill API</h1>
+    <div class="row">
+        <div class="col pricePlans">
+            <hr>
+            <h3>Price Plans</h3>
+            <div style="margin-bottom: 1em;">
+                <div class="allPricePlans table-responsive">
+                    <table class="center table table-bordered table-dark border-primary" x-show="showPricePlans"> 
+                            <tr>
+                                <thead>
+                                    <td>
+                                        ID
+                                    </td>
+                                    <td>
+                                        plan_name
+                                    </td>
+                                    <td>
+                                        sms_price
+                                    </td>
+                                    <td>
+                                        call_price
+                                    </td>
+                                </thead>
+                            </tr>
+                        <template x-for="price_plan in price_plans">
+                            <tr>
+                                <td x-text="price_plan.id">
+                                </td>
+                                <td x-text="price_plan.plan_name">
+                                </td>
+                                <td x-text="'R' + price_plan.sms_price">
+                                </td>
+                                <td x-text="'R' + price_plan.call_price">
+                                </td>
+                            </tr> 
+                        </template>
+                    </table>    
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <div x-show="showPricePlans == false">
+                    <button class="btn btn-primary" @click="showPricePlans = 
+                    !showPricePlans">Show Price Plans</button> 
+                </div>
+                <div x-show="showPricePlans == true">
+                    <button class="btn btn-primary" @click="showPricePlans = 
+                    !showPricePlans">Hide Price Plans</button>
+                </div> 
+            </div>     
+        </div>        
+    </div>
+    <div class="row">
+            <div class="col phoneBill">
+                <h2>Total Phone Bill</h2>
+                <div style="margin-bottom: 1em;" x-show="totalPhoneBillShow">
+                    <span>Total Phone Bill: </span>
+                    <span x-text="totalPhoneBill" style="background-color:white; font-weight: bolder;
+                     margin: 1em; padding: 0.2em; border-radius: 0.5em; color: green;"></span>
+                </div>
+                <div>
+                    <span>Price Plan: </span>
+                    <input type="text" placeholder="Enter price plan name e.g. sms 101" x-model="plan_name"
+                    style="margin-top: 0.5em; margin-bottom: 1em; width: 69%;">
+                </div>
+                <div>
+                    <span>Bill: </span>
+                    <input type="text" placeholder="Enter your usage e.g sms,call,sms..." x-model="actions"
+                    style="margin-top: 0.5em; margin-bottom: 1em; width: 79%;">
+                </div>
+                <span><button class="btn btn-primary" @click="getTotalPhoneBill(); setInterval(function(){
+                    plan_name = '';
+                    actions = '';
+                    totalPhoneBillShow = false;
+                }, 5000);">Total Phone Bill</button></span>
+            </div>
+            <div class="col deletePlan">
+                <h2>Delete A Price Plan</h2>
+                <div style="margin-bottom: 1em;" x-show="deleteMessageShow">
+                    <span x-text="deleteMessage" style="background-color:white; font-weight: bolder;
+                     margin: 1em; padding: 0.2em; border-radius: 0.5em; color: green;"></span>
+                </div>
+                <div>
+                    <span>Enter Price Plan Id: </span>
+                    <input type="text" placeholder="Enter price plan Id e.g. 4" x-model="id"
+                    style="margin-top: 0.5em; margin-bottom: 1em; width: 30%;">
+                </div>
+                <span><button class="btn btn-danger" @click="deletePricePlan(); setInterval(function(){
+                    deleteMessage = '';
+                    id = 0;
+                    deleteMessageShow = false;
+                }, 5000)">Delete</button></span>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <hr>
+                    <h4>Update A Price Plan</h4>
+                    <div style="margin-bottom: 1em;" x-show="messageShow">
+                        <span x-text="message" style="background-color:white; font-weight: bolder;
+                        margin: 1em; padding: 0.2em; border-radius: 0.5em; color: green;"></span>
+                    </div>
+                    <div>
+                        <span>Price Plan Name: </span>
+                        <input type="text" placeholder="Enter plan name e.g. Mtn plan" x-model="pricePlan"
+                        style="margin-top: 0.5em; margin-bottom: 1em;">
+                    </div>   
+                    <div>
+                        <span>New Call Cost: </span>
+                        <input type="text" placeholder="Enter new cost amount" x-model="newCall_cost"
+                        style="margin-top: 0.5em; margin-bottom: 1em;">
+                    </div>
+                    <div>
+                        <span>New Sms Cost: </span>
+                        <input type="text" placeholder="Enter new cost amount" x-model="newSms_cost"
+                        style="margin-top: 0.5em; margin-bottom: 1em;">
+                    </div>
+                    <span><button class="btn btn-success" @click="updatePricePlan(); setInterval(function(){
+                        pricePlan = '';
+                        newCall_cost = 0;
+                        newSms_cost = 0;
+                        messageShow = false;
+                    }, 5000)">Update</button></span>
+                </div>
+                <div class="col">
+                    <hr>
+                    <h4>Create A New Price Plan</h4>
+                    <div style="margin-bottom: 1em;" x-show="createMessageShow">
+                        <span x-text="createMessage" style="background-color:white; font-weight: bolder;
+                        margin: 1em; padding: 0.2em; border-radius: 0.5em; color: green;"></span>
+                    </div>
+                    <div>
+                        <span>Price Plan Name: </span>
+                        <input type="text" placeholder="Enter plan name e.g. Mtn plan" x-model="name"
+                        style="margin-top: 0.5em; margin-bottom: 1em;">
+                    </div>   
+                    <div>
+                        <span>New Call Cost: </span>
+                        <input type="text" placeholder="Enter new cost amount" x-model="call_cost"
+                        style="margin-top: 0.5em; margin-bottom: 1em;">
+                    </div>
+                    <div>
+                        <span>New Sms Cost: </span>
+                        <input type="text" placeholder="Enter new cost amount" x-model="sms_cost"
+                        style="margin-top: 0.5em; margin-bottom: 1em;">
+                    </div>
+                    <span><button class="btn btn-success" @click="createPricePlan(); setInterval(function(){
+                        name = '';
+                        call_cost = 0;
+                        sms_cost = 0;
+                        createMessageShow = false;
+                    }, 5000)">Create</button></span>
+                </div>
+            </div>
+        </div> 
+    </div>      
+</body>
+</html>

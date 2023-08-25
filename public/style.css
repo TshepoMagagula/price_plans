@@ -1,0 +1,62 @@
+body {
+    /* background-image: url(./images/binary.jpg); */
+    background-size: 50% 50%;
+    color: white;
+}
+
+h1 {
+    background-color: black;
+    padding: 0.7em;
+    text-align: center;
+    color: rgba(56, 56, 197, 0.829);
+    border: solid rgba(56, 56, 197, 0.829);
+}
+
+.col {
+    background-color: black;
+    border-radius: 1em;
+    border: solid rgba(56, 56, 197, 0.829);
+    margin: 1em;
+    padding: 1em;
+}
+
+h2 {
+    background-color: aliceblue;
+    padding: 0.7em;
+    text-align: center;
+    color: rgba(56, 56, 197, 0.829);
+    border: solid rgba(56, 56, 197, 0.829);
+}
+
+h3 {
+    background-color: aliceblue;
+    padding: 0.3em;
+    text-align: center;
+    color: rgba(56, 56, 197, 0.829);
+    border: double rgba(56, 56, 197, 0.829);
+}
+
+h4 {
+    background-color: aliceblue;
+    padding: 0.3em;
+    text-align: center;
+    color: rgba(56, 56, 197, 0.829);
+    border: double rgba(56, 56, 197, 0.829);
+}
+
+table {
+    border: solid;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+
+span {
+    padding: 1em;
+    margin: 1em;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
