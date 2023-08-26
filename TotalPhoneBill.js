@@ -3,14 +3,14 @@ export function totalPhoneBill(CustActions, sms_price, call_price){
       let totalBill = 0;
       for(let i = 0; i < ArrCustActions.length; i++ ){
       let CustAct = ArrCustActions[i].trim();
-        if(CustAct === "call"){
-        totalBill += call_price
+        if(CustAct == "call" || CustAct == "Call" || CustAct == "CALL"){
+          totalBill += call_price
         }
-        else if (CustAct === "sms"){
-        totalBill += sms_price
+        else if(CustAct == "sms" || CustAct == "Sms" || CustAct == "SMS") {
+          totalBill += sms_price
         }
         else {
-            alert(`${CustAct} is not a recognized product for billing`)
+          totalBill
         }
       }
       return "R" + totalBill.toFixed(2);

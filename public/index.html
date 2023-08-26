@@ -83,9 +83,12 @@
                     style="margin-top: 0.5em; margin-bottom: 1em; width: 79%;">
                 </div>
                 <span><button class="btn btn-primary" @click="getTotalPhoneBill(); setInterval(function(){
-                    plan_name = '';
-                    actions = '';
-                    totalPhoneBillShow = false;
+                    if(totalPhoneBill != 0){
+                        plan_name = '';
+                        actions = '';
+                        totalPhoneBillShow = false;
+                        totalPhoneBill = 0;
+                    }
                 }, 5000);">Total Phone Bill</button></span>
             </div>
             <div class="col deletePlan">
@@ -100,9 +103,11 @@
                     style="margin-top: 0.5em; margin-bottom: 1em; width: 30%;">
                 </div>
                 <span><button class="btn btn-danger" @click="deletePricePlan(); setInterval(function(){
-                    deleteMessage = '';
-                    id = 0;
-                    deleteMessageShow = false;
+                    if(deleteMessage != ''){
+                        deleteMessage = '';
+                        id = 0;
+                        deleteMessageShow = false;
+                    }
                 }, 5000)">Delete</button></span>
             </div>
             <div class="row">
@@ -129,10 +134,12 @@
                         style="margin-top: 0.5em; margin-bottom: 1em;">
                     </div>
                     <span><button class="btn btn-success" @click="updatePricePlan(); setInterval(function(){
-                        pricePlan = '';
-                        newCall_cost = 0;
-                        newSms_cost = 0;
-                        messageShow = false;
+                        if(message != ''){
+                            pricePlan = '';
+                            newCall_cost = 0;
+                            newSms_cost = 0;
+                            messageShow = false;
+                        }
                     }, 5000)">Update</button></span>
                 </div>
                 <div class="col">
@@ -158,10 +165,12 @@
                         style="margin-top: 0.5em; margin-bottom: 1em;">
                     </div>
                     <span><button class="btn btn-success" @click="createPricePlan(); setInterval(function(){
-                        name = '';
-                        call_cost = 0;
-                        sms_cost = 0;
-                        createMessageShow = false;
+                        if(createMessage != ''){
+                            name = '';
+                            call_cost = 0;
+                            sms_cost = 0;
+                            createMessageShow = false;
+                        }
                     }, 5000)">Create</button></span>
                 </div>
             </div>

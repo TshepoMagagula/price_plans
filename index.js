@@ -67,7 +67,7 @@ app.post('/api/price_plan/update', async function(req, res) {
 
     res.json({
         status : 'success',
-        message: `Price Plan "${price_plan}" has been updated`
+        message: `Price Plan '${price_plan}' has been updated`
     })
 });
 
